@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import "./student.css";
+import "./Student.css";
 
 const jobData = [
   {
