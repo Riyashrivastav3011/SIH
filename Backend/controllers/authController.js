@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs'
 
 export const createuser = async (req , res) => {
     try{
+      console.log("api hit");
        const {name , email , password , mobile , role} = req.body;
        const exist = await User.findOne({email});
         if(exist){
@@ -32,6 +33,7 @@ export const createuser = async (req , res) => {
 
 export const loginuser = async(req , res) => {
       try{
+      console.log("api hit");
         const {email , password} = req.body;
         const user = await User.findOne({email});
         if(!user){
