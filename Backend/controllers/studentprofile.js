@@ -1,4 +1,4 @@
-import Studentprofile from "../models/Studentprofile.js";
+import Studentprofile from "../models/Studentprofile";
 
 export const createStudentProfile = async(req , res) =>{
     try{
