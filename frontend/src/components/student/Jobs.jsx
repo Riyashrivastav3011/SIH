@@ -1,6 +1,8 @@
 
 import React, { useState } from "react";
 import "./Student.css";
+import Header from '../generalzone/Header'
+import Footer from '../generalzone/Footer'
 
 const jobData = [
   {
@@ -264,42 +266,13 @@ function Jobs() {
   };
 
   return (
-    <div className="jobs-page">
+    <>
+       <Header/>
+        <div className="jobs-page">
 
       {/* ================= NAVBAR ================= */}
 
-      <nav className="navbar">
-
-        <div className="logo">
-          Skill<span>Bridge</span>
-        </div>
-
-        <div className="nav-links">
-
-          <a href="/">Home</a>
-
-          <a href="/profile">Profile</a>
-
-          <a href="/internships">Internships</a>
-
-          <a href="/jobs" className="active">
-            Jobs
-          </a>
-
-          <a href="/skills">Skills</a>
-
-          <a href="/courses">Courses</a>
-
-          <a href="/reviews">Reviews</a>
-
-          <a href="/login" className="login-btn">
-            Login
-          </a>
-
-        </div>
-
-      </nav>
-
+ 
 
       {/* ================= HEADER ================= */}
 
@@ -831,6 +804,9 @@ function Jobs() {
       </footer>
 
     </div>
+       <Footer/>
+    </>
+   
   );
 }
 
