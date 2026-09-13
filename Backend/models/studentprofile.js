@@ -122,4 +122,4 @@ const studentProfileSchema = new mongoose.Schema({
 }
 );
 
-export default mongoose.model("studentprofile" , studentProfileSchema);
+export default mongoose.model("Studentprofile" , studentProfileSchema);
