@@ -1,0 +1,418 @@
+* {
+  box-sizing: border-box;
+}
+
+.dashboard {
+  min-height: 100vh;
+  background: #f8f6f3;
+  color: #171717;
+  padding: 35px 5%;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.dashboard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-top h1 {
+  font-size: 30px;
+  margin: 0 0 8px;
+  color: #171717;
+}
+
+.dashboard-top p {
+  margin: 0;
+  color: #777;
+  font-size: 14px;
+}
+
+.profile-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #b68961;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+}
+
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.dashboard-card {
+  background: white;
+  border: 1px solid #eee6df;
+  padding: 22px;
+  border-radius: 14px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+
+  transition: 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-3px);
+  border-color: #b68961;
+}
+
+.card-icon {
+  font-size: 25px;
+  margin-bottom: 12px;
+}
+
+.dashboard-card h3 {
+  font-size: 25px;
+  margin: 0 0 5px;
+  color: #b68961;
+}
+
+.card-title {
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.login-message {
+  margin-top: 8px;
+  color: #888;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.dashboard-section {
+  background: white;
+  border: 1px solid #eee6df;
+  padding: 25px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.dashboard-section h2 {
+  font-size: 20px;
+  margin: 0 0 8px;
+  color: #171717;
+}
+
+.section-heading {
+  margin-bottom: 22px;
+}
+
+.section-heading p {
+  margin: 0;
+  color: #888;
+  font-size: 13px;
+}
+
+
+/* =========================
+   SKILLS
+========================= */
+
+.skill-item {
+  margin-bottom: 20px;
+}
+
+.skill-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  font-size: 14px;
+}
+
+.skill-title strong {
+  color: #b68961;
+}
+
+.progress {
+  width: 100%;
+  height: 8px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #b68961;
+  border-radius: 10px;
+}
+
+
+/* =========================
+   LOGIN PLACEHOLDER
+========================= */
+
+.login-placeholder {
+  min-height: 230px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background: #faf8f5;
+  border: 1px dashed #d8c4b2;
+  border-radius: 12px;
+  padding: 30px;
+}
+
+.login-placeholder.small {
+  min-height: 190px;
+}
+
+.placeholder-icon {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #f0e5dc;
+
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.login-placeholder h3,
+.mini-placeholder h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.login-placeholder p,
+.mini-placeholder p {
+  max-width: 480px;
+  margin: 0 auto 18px;
+
+  color: #777;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.brown-btn {
+  border: none;
+  background: #b68961;
+  color: white;
+
+  padding: 10px 18px;
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.brown-btn:hover {
+  background: #946f4d;
+}
+
+.full-btn {
+  width: 100%;
+}
+
+.outline-btn {
+  border: 1px solid #b68961;
+  background: white;
+  color: #b68961;
+
+  padding: 8px 15px;
+  border-radius: 7px;
+
+  cursor: pointer;
+}
+
+.outline-btn:hover {
+  background: #b68961;
+  color: white;
+}
+
+
+/* =========================
+   INTERNSHIPS
+========================= */
+
+.internship-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+
+  margin-bottom: 12px;
+}
+
+.internship-card h3 {
+  font-size: 16px;
+  margin: 0 0 6px;
+}
+
+.internship-card p {
+  color: #777;
+  font-size: 13px;
+  margin: 0 0 8px;
+}
+
+.internship-card span {
+  color: #b68961;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+
+/* =========================
+   SKILL GAP
+========================= */
+
+.gap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 13px;
+
+  background: #faf7f4;
+  border: 1px solid #eee4db;
+
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.gap span {
+  color: #b68961;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+
+/* =========================
+   MINI PLACEHOLDER
+========================= */
+
+.mini-placeholder {
+  text-align: center;
+  padding: 20px 5px;
+}
+
+.small-icon {
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  margin: 0 auto 12px;
+}
+
+.mini-placeholder p {
+  margin-bottom: 18px;
+}
+
+.assistant-text {
+  color: #777;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .dashboard {
+    padding: 25px 15px;
+  }
+
+  .dashboard-top {
+    align-items: flex-start;
+  }
+
+  .dashboard-top h1 {
+    font-size: 23px;
+  }
+
+  .profile-box strong {
+    display: none;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-section {
+    padding: 20px;
+  }
+
+  .internship-card {
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

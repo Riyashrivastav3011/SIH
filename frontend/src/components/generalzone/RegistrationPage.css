@@ -1,0 +1,424 @@
+* {
+  box-sizing: border-box;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #eeeeee, #fdd2ac);
+  padding: 20px;
+}
+/* dce5ff */
+.card {
+  width: 100%;
+  max-width: 850px;
+  min-height: 540px;
+  background: white;
+  border-radius: 28px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  display: flex;
+  overflow: hidden;
+}
+
+/* ---------- left side: registration form ---------- */
+
+.register-box {
+  width: 52%;
+  padding: 55px 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.register-box h1 {
+  font-size: 34px;
+  color: #111;
+  margin-bottom: 30px;
+}
+
+.input-box {
+  position: relative;
+  margin-bottom: 20px;
+  border: 1px solid grey;
+  border-radius:10px;
+}
+
+.input-box input,
+.input-box select {
+  width: 100%;
+  height: 52px;
+  background-color: white;
+  color: #333;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  padding: 0 45px 0 18px;
+  font-size: 15px;
+  appearance: none;
+}
+.input-box select option {
+  background: white;
+  color: #333;
+}
+
+.input-box select option:hover {
+  background: #b68961;
+  color: white;
+}
+.input-box span {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.btn-primary {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 8px;
+  background: #b68961;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+/* 6389e8 */
+
+
+.btn-primary:hover {
+  background: #b68961;
+  transform: translateY(-2px);
+}
+/* 4d75dc */
+.or-text {
+  text-align: center;
+  margin: 20px 0 15px;
+  color: #777;
+  font-size: 14px;
+}
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.social-login a {
+  width: 45px;
+  height: 45px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.social-login a:hover {
+  background: #f1f1f1;
+  transform: translateY(-3px);
+}
+
+/* ---------- right side: welcome panel ---------- */
+
+.welcome-box {
+  width: 48%;
+  background: #e9ba91;       
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  border-radius: 120px 0 0 120px;
+}
+
+.welcome-box h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.welcome-box p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 25px;
+}
+
+.btn-login {
+  width: 160px;
+  height: 48px;
+  background: transparent;
+  color: black;
+  box-shadow: 2px 2px 2px 2px;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background: white;
+  color: #ad8e73;
+  border:2px white;
+}
+
+/* ---------- responsive: stack on smaller screens ---------- */
+
+@media (max-width: 750px) {
+  .card {
+    flex-direction: column;
+  }
+
+  .register-box,
+  .welcome-box {
+    width: 100%;
+  }
+
+  .welcome-box {
+    border-radius: 80px 80px 0 0;
+    padding: 30px;
+  }
+}
+
+
+
+
+.otp-card {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: 28px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  padding: 45px 40px;
+  text-align: center;
+}
+ 
+.otp-card h1 {
+  font-size: 28px;
+  color: #111;
+  margin-bottom: 10px;
+}
+ 
+.otp-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 25px 0;
+}
+ 
+.otp-box input {
+  width: 50px;
+  height: 55px;
+  text-align: center;
+  font-size: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+ 
+.otp-box input:focus {
+  border-color: #876546;
+  /* 6389e8; */
+}
+ 
+.resend-link {
+  color: #6389e8;
+  font-weight: bold;
+  cursor: pointer;
+}
+ @keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.otp-card {
+  animation: slideInLeft 0.4s ease-out forwards;
+}
+
+
+/* Footer */
+.footer {
+  background: rgb(71, 64, 64);
+  color: white;
+  margin-top: 60px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 55px 25px 40px;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: 45px;
+}
+
+
+/* Logo */
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.footer-logo img {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+
+  background: white;
+  border-radius: 50%;
+  padding: 7px;
+}
+
+.footer-logo h2 {
+  margin: 0;
+  font-size: 25px;
+  color: white;
+}
+
+.footer-about p {
+  max-width: 330px;
+  color: #f0eeee;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.since {
+  color: #b68961 !important;
+  font-size: 12px !important;
+  font-weight: bold;
+  letter-spacing: 4px;
+  margin-top: 22px;
+}
+
+
+/* Links */
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links h3 {
+  color: #fbd5b4;
+  font-size: 17px;
+  margin: 0 0 8px;
+}
+
+.footer-links a {
+  color: #f8f5f5;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: #b68961;
+  transform: translateX(4px);
+}
+
+.footer-links p {
+  color: #f4f2f2;
+  font-size: 14px;
+  margin: 0;
+}
+
+
+/* Social */
+
+.footer-social {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.footer-social span {
+  border: 1px solid #b68961;
+  color: #b68961;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+
+/* Bottom */
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+
+  max-width: 1200px;
+  margin: auto;
+
+  padding: 20px 25px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: #f3f1f1;
+  font-size: 12px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+  }
+
+  .footer-about {
+    grid-column: 1 / -1;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+
+@media (max-width: 500px) {
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    padding: 40px 20px;
+  }
+
+  .footer-about {
+    grid-column: auto;
+  }
+
+  .footer-logo {
+    justify-content: flex-start;
+  }
+
+  .footer-bottom {
+    padding: 18px 20px;
+  }
+}
