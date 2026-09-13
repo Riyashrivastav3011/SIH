@@ -789,20 +789,6 @@ function Jobs() {
       </div>
 
 
-      {/* ================= FOOTER ================= */}
-
-      <footer>
-
-        <strong>
-          SkillBridge
-        </strong>
-
-        <p>
-          Connecting Skills with Opportunities © 2026
-        </p>
-
-      </footer>
-
     </div>
        <Footer/>
     </>
