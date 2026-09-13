@@ -3,8 +3,8 @@ import { transporter } from "./emailConfig.js";
 // ================= OTP EMAIL =================
 export const sendVerificationCode = async (email, verificationCode) => {
   try {
-    await transporter.sendMail({
-      from: '"Skill bridge" <riyashrivastav06348@gmail.com>',
+    const info =  await transporter.sendMail({
+      from: `"ARCASS" <${process.env.Email_User}>`,
       to: email,
       subject: "Your skill bridge Verification Code",
 
@@ -49,6 +49,9 @@ export const sendVerificationCode = async (email, verificationCode) => {
         </div>
       `
     });
+    console.log("mail info:",info);
+    console.log("messaegid:", info.messageId);
+    console.log("response:", info.response);
 
     console.log("OTP email sent successfully");
 
