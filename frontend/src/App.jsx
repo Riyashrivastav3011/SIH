@@ -1,38 +1,43 @@
-import { useState } from 'react'
-import { Toaster } from 'react-hot-toast';
-import Register from './components/generalzone/Register'
-import Login from './components/generalzone/Login'
-import Otp from './components/generalzone/Otp'
-import Home from './components/generalzone/Home';
-import StudentProfile from './components/student/Studentprofile';
-import { BrowserRouter , Routes , Route } from 'react-router-dom'
-import './App.css'
-import Courses from './components/student/Course';
-import Studentdashboard from './components/student/Studentdashboard';
-import Jobs from './components/student/Jobs';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppLayout from "./layouts/AppLayout";
+import Navbar from "./components/common/Navbar";
+import Landing from "./pages/Landing";
+import Dashboard from "./pages/Dashboard";
+import TrainDetails from "./pages/TrainDetails";
+import ControlRoom from './pages/ControlRoom'
+import TrainEta from './pages/TrainEta'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Alerts from './pages/Alerts'
+import Analytics from './pages/Analytics'
+import SystemHealth from './pages/SystemHealth'
+import  Settings  from './pages/Settings';
 
-function App() {
 
+const Soon = ({ title }) => (
+  <h1 className="text-2xl font-bold">{title} (coming soon)</h1>
+);
+
+export default function App() {
   return (
-    <>
-     <Toaster position="top-center" reverseOrder={false} />
     <BrowserRouter>
-     <Routes>
-      <Route path='/' element={<Home/>}></Route>
-      <Route path='/jobs' element={<Jobs/>}></Route>
-      <Route path='/Student' element={<Studentdashboard/>}></Route>
-      <Route path='/course' element={<Courses/>}></Route>
-      <Route path='/studentprofile' element={<StudentProfile/>}></Route>
-   
-        <Route path='/register' element={<Register/>}></Route>
-      <Route path='/verify' element={<Otp/>}></Route>
-      <Route path='/login' element={<Login/>}></Route>
+      <Routes>
+        {/* Public pages (Navbar ke saath, bina sidebar) */}
+        <Route path="/" element={<><Navbar /><Landing /></>} />
+        <Route path="/login" element={<><Navbar/><Login/></>} />
 
-     </Routes>
-     </BrowserRouter>
-
-    </>
-  )
+        {/* App pages (Navbar + Sidebar wala AppLayout) */}
+        <Route element={<AppLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/train/:trainNumber" element={<TrainDetails />} />
+          <Route path="/control-room" element={<ControlRoom />} />
+           <Route path="/train/:no" element={<TrainEta no="12002" />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/alerts" element={<Alerts />} />
+          <Route path="/system-health" element={<SystemHealth />} />
+          <Route path="/settings" element={<Settings />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App

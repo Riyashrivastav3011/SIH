@@ -1,30 +1,34 @@
-// @type {import('tailwindcss').Config} 
+/** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+
+  darkMode: "class",
+
   theme: {
     extend: {
       colors: {
-        // ── Brand palette (D99B7F + derived shades) ──
-        brand: {
-          DEFAULT: "#D99B7F",   // main accent
-          dark: "#C4815F",      // hover
-          deep: "#A96847",      // active / pressed
-          light: "#F3DCCF",     // chips / tint
-          ghost: "#FBEEE6",     // very light panels / inputs
-          grad1: "#E8B296",     // gradient start
+        rail: {
+          50: "#eff6ff",
+          600: "#0f365c",
+          700: "#0a2540",
+          800: "#081d33",
         },
-        // ── Warm neutrals to match ──
-        ink: {
-          DEFAULT: "#3B2B23",   // headings
-          muted: "#8A7568",     // secondary text
-        },
-        line: "#E5D5CB",        // borders
+
+        brand: "#0f62fe",
+        success: "#0e8a3c",
+        warning: "#c28200",
+        danger: "#d92d20",
       },
-      boxShadow: {
-        card: "0 24px 60px rgba(120, 76, 50, 0.18)",
-        "btn-glow": "0 8px 20px rgba(217, 155, 127, 0.35)",
+
+      fontFamily: {
+        sans: ["Inter", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
       },
     },
   },
+
   plugins: [],
 };
