@@ -7,7 +7,7 @@ import {
   Menu,
   Sparkles,
 } from "lucide-react";
-import { useThemeStore } from "../../store/useThemeStore";
+// import { useThemeStore } from "../../store/useThemeStore";
 import { Link } from "react-router-dom";
 
 export default function Navbar({ onMenu }) {
