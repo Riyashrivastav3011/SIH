@@ -9,6 +9,7 @@ import {
   Activity,
   Settings,
   Train,
+  Clock,
 } from "lucide-react";
 import Footer from "../components/common/Footer"
 
@@ -22,6 +23,11 @@ const links = [
     to: "/control-room",
     label: "Control Room",
     icon: Map,
+  },
+  {
+    to: "/station-board",
+    label: "Station Board",
+    icon: Clock,
   },
   {
     to: "/analytics",

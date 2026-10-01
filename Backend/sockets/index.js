@@ -16,7 +16,14 @@ function init(httpServer) {
       const d = await computeETA(trainNo);
       if (!d) return;
       io.to('train:' + trainNo).emit('eta', d);
-      io.to('all').emit('status', { trainNo, trainName: d.trainName, delayMin: d.currentDelayMin, lastStation: d.lastStation, zone: d.zone });
+      const delay = d.currentDelayMin;
+      io.to('all').emit('status', {
+        trainNo, trainNumber: trainNo, number: trainNo,
+        trainName: d.trainName, name: d.trainName, route: d.route, zone: d.zone,
+        delayMin: delay, delayMinutes: delay, delay,
+        lastStation: d.lastStation,
+        status: delay >= 30 ? 'Critical' : delay >= 10 ? 'Delayed' : 'On Time',
+      });
       d.stops.forEach(st => io.to('station:' + st.stationCode).emit('arrival', { trainNo, trainName: d.trainName, ...st }));
     } catch (e) { console.error('socket push', e.message); }
   });

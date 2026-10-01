@@ -11,25 +11,33 @@ api.interceptors.request.use((cfg) => {
   return cfg;
 });
 
-// Cards: liveTrains, avgDelayMin, delayed15, historyRecords
+// token expire / invalid ho to session saaf karke login par bhejo
+api.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (err?.response?.status === 401) {
+      ["token", "role", "name"].forEach((k) => localStorage.removeItem(k));
+      if (window.location.pathname !== "/login") window.location.href = "/login";
+    }
+    return Promise.reject(err);
+  }
+);
+
 export const getSummary = async () => {
   const { data } = await api.get("/dashboard/summary");
   return data;
 };
 
-// Zone-wise: [{ _id: "NCR", trains, avgDelay, maxDelay }]
 export const getZones = async () => {
   const { data } = await api.get("/dashboard/zones");
   return data;
 };
 
-// Delayed trains list (default 15 min se zyada)
 export const getDelayed = async (min = 15) => {
   const { data } = await api.get("/dashboard/delayed", { params: { min } });
   return data;
 };
 
-// TSR / block add karne ke liye (control room form)
 export const addEvent = async (body) => {
   const { data } = await api.post("/events", body);
   return data;

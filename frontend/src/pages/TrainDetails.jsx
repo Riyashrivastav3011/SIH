@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-// import { useTrainStore } from "../store/useTrainStore";
+import { getTrainDetails } from "../services/trainApi";
+import { useLive } from "../hooks/useLive";
 import {
   LineChart,
   Line,
@@ -14,17 +15,42 @@ import {
 } from "recharts";
 import MapView from "../components/map/MapView";
 
+const COLORS = ["#0f62fe", "#f59e0b", "#10b981", "#8b5cf6", "#ef4444", "#06b6d4"];
+
 export default function TrainDetails() {
   const { trainNumber } = useParams();
 
-  const train = useTrainStore((state) =>
-    state.trains.find((item) => item.number === trainNumber)
-  );
+  const [train, setTrain] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const load = useCallback(async () => {
+    try {
+      setTrain(await getTrainDetails(trainNumber));
+      setError("");
+    } catch (e) {
+      setError(e?.response?.data?.error || "Unable to load train details");
+    } finally {
+      setLoading(false);
+    }
+  }, [trainNumber]);
+
+  useEffect(() => {
+    setLoading(true);
+    load();
+    const id = setInterval(load, 8000);
+    return () => clearInterval(id);
+  }, [load]);
+
+  // live ETA push for this train
+  useLive("subscribe:train", trainNumber, "eta", load);
 
   if (!train) {
     return (
       <div className="p-6">
-        <h1 className="text-xl font-bold">Train not found</h1>
+        <h1 className="text-xl font-bold">
+          {loading ? "Loading train..." : error || "Train not found"}
+        </h1>
       </div>
     );
   }
@@ -196,6 +222,7 @@ export default function TrainDetails() {
                   {train.delayFactors.map((item, index) => (
                     <Cell
                       key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
                     />
                   ))}
                 </Pie>

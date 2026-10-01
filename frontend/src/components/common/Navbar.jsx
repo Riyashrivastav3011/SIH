@@ -7,11 +7,13 @@ import {
   Menu,
   Sparkles,
 } from "lucide-react";
-// import { useThemeStore } from "../../store/useThemeStore";
+import { useThemeStore } from "../../store/useThemestore";
+import { logoutUser } from "../../services/authApi";
 import { Link } from "react-router-dom";
 
 export default function Navbar({ onMenu }) {
   const { theme, toggle } = useThemeStore();
+  const token = localStorage.getItem("token");
 
   return (
     <header
@@ -335,6 +337,7 @@ export default function Navbar({ onMenu }) {
 
           {/* Login */}
           <Link
+            onClick={() => { if (token) logoutUser(); }}
             to="/login"
             className="
               ml-1
@@ -358,7 +361,7 @@ export default function Navbar({ onMenu }) {
               active:scale-95
             "
           >
-            Login
+            {token ? "Logout" : "Login"}
           </Link>
 
         </div>

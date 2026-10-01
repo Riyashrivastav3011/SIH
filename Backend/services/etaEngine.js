@@ -80,6 +80,7 @@ async function computeETA(trainNo) {
     trainNo, trainName: route.trainName, zone: route.zone, asOf: new Date(),
     currentDelayMin: live.delayMin, lastStation: live.lastStationCode, speed: live.speed,
     weather: weather.condition, stops: out,
+    route: `${stops[0].stationName} → ${stops[stops.length - 1].stationName}`,
   };
   cache.set(trainNo, { t: Date.now(), data });
   return data;

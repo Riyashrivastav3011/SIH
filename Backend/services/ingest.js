@@ -20,12 +20,25 @@ async function recordPosition({ trainNo, stationCode, delayMin, speed = 0, lat, 
     : prev ? prev.runStart
     : new Date(Date.now() - (stop.schedArrMin + delayMin) * 60000);
 
+  // per-stop actual delays (used for the route/delay chart)
+  let stopDelays = [];
+  if (stop.seq === 0 || !prev) stopDelays[stop.seq] = delayMin;
+  else {
+    stopDelays = [...(prev.stopDelays || [])];
+    if (stop.seq > prev.lastSeq) {
+      const n = stop.seq - prev.lastSeq;
+      for (let f = prev.lastSeq + 1; f <= stop.seq; f++)
+        stopDelays[f] = Math.round((prev.delayMin + (delayMin - prev.delayMin) * (f - prev.lastSeq) / n) * 10) / 10;
+    }
+  }
+  stopDelays = Array.from(stopDelays, v => v ?? 0);
+
   const live = await LiveStatus.findOneAndUpdate({ trainNo }, {
     trainNo, zone: route.zone, corridor: route.corridor,
     lastSeq: stop.seq, lastStationCode: stationCode, delayMin, speed,
     lat: lat ?? stop.lat, lng: lng ?? stop.lng, km: stop.km,
-    runStart: rs, updatedAt: new Date(),
-  }, { upsert: true, new: true });
+    runStart: rs, stopDelays, updatedAt: new Date(),
+  }, { upsert: true, returnDocument: 'after' });
   bus.emit('update', trainNo);
   return live;
 }

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { signupUser } from "../services/authApi";
+import "./Signup.css";
 
 function Signup() {
 
@@ -9,7 +11,8 @@ function Signup() {
         name: "",
         email: "",
         organization: "",
-        role: "staff",
+        role: "public",
+        accessCode: "",
         password: "",
         confirmPassword: ""
     });
@@ -50,6 +53,12 @@ function Signup() {
         }
 
 
+        if (form.role !== "public" && !form.accessCode) {
+            setError("Access code is required for staff and administrator accounts.");
+            return;
+        }
+
+
         if (form.password !== form.confirmPassword) {
 
             setError(
@@ -74,39 +83,30 @@ function Signup() {
 
             setLoading(true);
 
-            /*
-             * Backend signup API will be connected here.
-             *
-             * Example:
-             *
-             * const response = await fetch(
-             *     "http://localhost:5000/api/auth/signup",
-             *     {
-             *         method: "POST",
-             *         headers: {
-             *             "Content-Type": "application/json"
-             *         },
-             *         credentials: "include",
-             *         body: JSON.stringify({
-             *             name: form.name,
-             *             email: form.email,
-             *             organization: form.organization,
-             *             role: form.role,
-             *             password: form.password
-             *         })
-             *     }
-             * );
-             */
+            const data = await signupUser({
+                name: form.name,
+                email: form.email,
+                organization: form.organization,
+                role: form.role,
+                accessCode: form.accessCode,
+                password: form.password
+            });
 
-            await new Promise((resolve) =>
-                setTimeout(resolve, 700)
+            // sign the user in straight away
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("role", data.role);
+            localStorage.setItem("name", data.name || "");
+
+            navigate(
+                data.role === "staff" || data.role === "admin"
+                    ? "/control-room"
+                    : "/dashboard"
             );
-
-            navigate("/login");
 
         } catch (err) {
 
             setError(
+                err?.response?.data?.error ||
                 "Unable to create account. Please try again."
             );
 
@@ -282,7 +282,7 @@ function Signup() {
                                 >
 
                                     <option value="staff">
-                                        Staff
+                                        Railway Staff
                                     </option>
 
                                     <option value="admin">
@@ -294,6 +294,27 @@ function Signup() {
                             </div>
 
                         </div>
+
+
+                        {form.role !== "public" && (
+                            <div className="form-group">
+
+                                <label className="form-label">
+                                    Access code
+                                </label>
+
+                                <input
+                                    className="form-input"
+                                    type="password"
+                                    name="accessCode"
+                                    placeholder="Issued by the control room"
+                                    value={form.accessCode}
+                                    onChange={handleChange}
+                                    autoComplete="off"
+                                />
+
+                            </div>
+                        )}
 
 
                         <div className="form-group">

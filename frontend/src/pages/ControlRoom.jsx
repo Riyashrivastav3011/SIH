@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-// import { getSummary, getZones, getDelayed } from "../services/controlRoomApi.js";
+import { getSummary, getZones, getDelayed } from "../services/controlroomapi.js";
 import { useLive } from "../hooks/useLive.js";
 import './Cascade.css';
 
@@ -73,6 +73,16 @@ const ControlRoom = () => {
 
     useEffect(() => {
         loadControlRoom();
+        const id = setInterval(async () => {
+            try {
+                const [s, z, d] = await Promise.all([getSummary(), getZones(), getDelayed()]);
+                setSummary(s);
+                setZones(z);
+                setDelayedTrains(d);
+                setLastUpdated(new Date());
+            } catch (e) { /* keep last data */ }
+        }, 10000);
+        return () => clearInterval(id);
     }, []);
 
     const handleLiveUpdate = useCallback((update) => {

@@ -1,77 +1,28 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { getAlerts } from "../services/trainApi";
 import "./Cascade.css";
 
-const initialAlerts = [
-  {
-    id: 1,
-    severity: "critical",
-    title: "Train delay threshold exceeded",
-    train: "12951",
-    trainName: "Mumbai Rajdhani",
-    location: "Kota Junction",
-    message: "Train is running 42 minutes behind schedule.",
-    time: "2 min ago",
-    status: "active",
-  },
-  {
-    id: 2,
-    severity: "warning",
-    title: "Signal communication degraded",
-    train: "—",
-    trainName: "Control Zone B",
-    location: "Ratlam Section",
-    message: "Interlocking communication response time is above normal.",
-    time: "8 min ago",
-    status: "active",
-  },
-  {
-    id: 3,
-    severity: "warning",
-    title: "Platform occupancy conflict",
-    train: "12953",
-    trainName: "August Kranti",
-    location: "New Delhi",
-    message: "Expected platform occupancy overlaps with another service.",
-    time: "14 min ago",
-    status: "active",
-  },
-  {
-    id: 4,
-    severity: "info",
-    title: "Train entered monitoring zone",
-    train: "12432",
-    trainName: "Rajdhani Express",
-    location: "Bhopal Zone",
-    message: "Train successfully entered the monitored section.",
-    time: "22 min ago",
-    status: "active",
-  },
-  {
-    id: 5,
-    severity: "critical",
-    title: "Communication heartbeat lost",
-    train: "12002",
-    trainName: "Shatabdi Express",
-    location: "Agra Control",
-    message: "No heartbeat received from onboard telemetry gateway.",
-    time: "31 min ago",
-    status: "active",
-  },
-  {
-    id: 6,
-    severity: "info",
-    title: "Schedule recovered",
-    train: "12951",
-    trainName: "Mumbai Rajdhani",
-    location: "Sawai Madhopur",
-    message: "Train recovered 11 minutes of previous delay.",
-    time: "46 min ago",
-    status: "resolved",
-  },
-];
-
 function Alerts() {
-  const [alerts, setAlerts] = useState(initialAlerts);
+  const [alerts, setAlerts] = useState([]);
+  const resolvedRef = useRef(new Set());
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const data = await getAlerts();
+        setAlerts(
+          data.map((a) =>
+            resolvedRef.current.has(a.id) ? { ...a, status: "resolved" } : a
+          )
+        );
+      } catch (e) {
+        /* keep last data */
+      }
+    };
+    load();
+    const id = setInterval(load, 10000);
+    return () => clearInterval(id);
+  }, []);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
 
@@ -105,6 +56,7 @@ function Alerts() {
   const resolvedCount = alerts.filter((a) => a.status === "resolved").length;
 
   const resolveAlert = (id) => {
+    resolvedRef.current.add(id);
     setAlerts((current) =>
       current.map((alert) =>
         alert.id === id ? { ...alert, status: "resolved" } : alert

@@ -1,10 +1,20 @@
-import React from "react";
-// import { useTrainStore } from "../store/useTrainStore";
+import React, { useEffect } from "react";
+import { useTrainStore } from "../store/useTrainstore";
+import { useLive } from "../hooks/useLive";
 import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
 
 export default function Dashboard() {
-  const { trains, search, setSearch } = useTrainStore();
+  const { trains, search, setSearch, loading, error, fetchTrains } = useTrainStore();
+
+  useEffect(() => {
+    fetchTrains();
+    const id = setInterval(fetchTrains, 8000);
+    return () => clearInterval(id);
+  }, [fetchTrains]);
+
+  // refresh instantly when any train reports a new position
+  useLive("subscribe:all", null, "status", fetchTrains);
 
   const filtered = trains.filter((train) =>
     (
@@ -46,6 +56,12 @@ export default function Dashboard() {
           className="w-full pl-10 pr-4 py-3 rounded-xl border dark:bg-white/5"
         />
       </div>
+
+      {error && (
+        <div className="p-3 rounded-xl bg-red-50 text-red-700 text-sm border border-red-200">
+          {error}
+        </div>
+      )}
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -116,13 +132,14 @@ export default function Dashboard() {
                 }`}
               >
                 {train.status.replace("_", " ")}
+                {train.delayMinutes > 0 ? ` +${train.delayMinutes}m` : ""}
               </span>
             </Link>
           ))}
 
           {filtered.length === 0 && (
             <div className="p-6 text-center opacity-60">
-              No trains found.
+              {loading ? "Loading trains..." : "No trains found."}
             </div>
           )}
         </div>

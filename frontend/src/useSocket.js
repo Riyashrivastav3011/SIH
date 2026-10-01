@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io(import.meta.env.VITE_SOCKET_URL); // ek hi connection poori app me
+const socket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000'); // ek hi connection poori app me
 
 // room: 'subscribe:train' | 'subscribe:station' | 'subscribe:all'
 // event: 'eta' | 'arrival' | 'status'

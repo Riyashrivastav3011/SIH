@@ -1,8 +1,7 @@
-import dotenv from 'dotenv'
-dotenv.config();
-const bcrypt = require('bcryptjs');
-import connectDB from '../src/config/db.js';
-import { Station, Train, Route, History, User, LiveStatus, Event } from '../src/models';
+import 'dotenv/config';
+import bcrypt from 'bcryptjs';
+import connectDB from '../config/db.js';
+import { Station, Train, Route, History, User, LiveStatus, Event } from '../models/index.js';
 
 // Approximate coordinates/km markers (demo data)
 const S = {
@@ -64,8 +63,8 @@ function buildStops(corr, codes, speed, halt = 2) {
   }
   await History.insertMany(hist);
   await User.create([
-    { email: 'admin@rail.in', password: await bcrypt.hash('admin123', 8), role: 'admin' },
-    { email: 'staff@rail.in', password: await bcrypt.hash('staff123', 8), role: 'staff' },
+    { name: 'Admin', organization: 'Control Room', email: 'admin@rail.in', password: await bcrypt.hash('admin123', 8), role: 'admin' },
+    { name: 'Staff', organization: 'Station Ops', email: 'staff@rail.in', password: await bcrypt.hash('staff123', 8), role: 'staff' },
   ]);
   console.log(`Seeded: ${Object.keys(S).length} stations, ${TRAINS.length} trains, ${hist.length} history rows`);
   console.log('Users: admin@rail.in/admin123, staff@rail.in/staff123');

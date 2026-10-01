@@ -34,6 +34,7 @@ const LiveStatus = mongoose.model('LiveStatus', new Schema({
   lastSeq: Number, lastStationCode: String,
   delayMin: Number, speed: Number, lat: Number, lng: Number, km: Number,
   runStart: Date, // actual/derived origin departure timestamp of this run
+  stopDelays: { type: [Number], default: [] }, // actual delay recorded at each crossed stop
   updatedAt: { type: Date, default: Date.now },
 }));
 
@@ -53,6 +54,7 @@ const Event = mongoose.model('Event', new Schema({
 }));
 
 const User = mongoose.model('User', new Schema({
+  name: String, organization: String,
   email: { type: String, unique: true }, password: String,
   role: { type: String, enum: ['public', 'staff', 'admin'], default: 'public' },
 }));

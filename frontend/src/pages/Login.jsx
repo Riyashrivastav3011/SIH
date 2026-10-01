@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-// import { loginUser } from "../services/authApi";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { loginUser } from "../services/authApi";
 import "./Home.css";
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -18,7 +19,11 @@ function Login() {
     try {
       const { role } = await loginUser(email.trim(), password);
       // staff/admin control room jaayenge, baaki home
-      navigate(role === "staff" || role === "admin" ? "/control" : "/");
+      const home = role === "staff" || role === "admin" ? "/control-room" : "/dashboard";
+      const from = location.state?.from;
+      // staff-only page ke liye passenger ko wapas na bhejo
+      const allowed = from && (from !== "/control-room" || role !== "public");
+      navigate(allowed ? from : home, { replace: true });
     } catch (err) {
       setError(err?.response?.data?.error || "Unable to sign in. Please try again.");
     } finally {
@@ -79,7 +84,7 @@ function Login() {
         </form>
 
         <p className="login-footer">
-          Live train ETA prediction · Indian Railways
+          New here? <Link to="/signup">Create an account</Link>
         </p>
       </div>
     </div>

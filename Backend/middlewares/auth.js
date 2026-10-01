@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-const secret = () => process.env.JWT_SECRET;
+const secret = () => process.env.JWT_SECRET || 'dev_secret_change_me';
 
 const sign = (u) => jwt.sign({ id: u._id, email: u.email, role: u.role }, secret(), { expiresIn: '12h' });
 
